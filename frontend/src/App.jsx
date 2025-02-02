@@ -1,13 +1,14 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import UserLayout from './components/Layout/UserLayout'; 
+import Navigation from './components/Customers/Navigation/Navigation';
+import Homepage from './pages/Homepage/Homepage';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<UserLayout />} /> 
-      </Routes>
-    </BrowserRouter>
+    <div className=''>
+      <Navigation />
+      <div>
+        <Homepage />
+      </div>
+    </div>
   );
 };
 
