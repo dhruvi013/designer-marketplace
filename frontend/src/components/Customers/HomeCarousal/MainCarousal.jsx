@@ -3,18 +3,46 @@ import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 
 const items = [
-    <div className="item" data-value="1">1</div>,
-    <div className="item" data-value="2">2</div>,
-    <div className="item" data-value="3">3</div>,
-    <div className="item" data-value="4">4</div>,
-    <div className="item" data-value="5">5</div>,
+<img 
+  src="https://cdn.pixabay.com/photo/2018/01/13/19/26/fashion-3080626_1280.jpg" 
+  alt="Pixabay Image" 
+  className="carousel-image"
+  style={{ width: "1400px", height: "550px", objectFit: "cover", }} 
+/>,
+<img 
+  src="https://cdn.pixabay.com/photo/2016/11/14/03/02/woman-1822454_1280.jpg" 
+  alt="Pixabay Image" 
+  className="carousel-image"
+  style={{ width: "1400px", height: "550px", objectFit: "cover", }} 
+/>,
+<img 
+  src="https://cdn.pixabay.com/photo/2016/11/29/01/34/man-1866574_1280.jpg" 
+  alt="Pixabay Image" 
+  className="carousel-image"
+  style={{ width: "1400px", height: "550px", objectFit: "cover", }} 
+/>,
+<img 
+  src="https://cdn.pixabay.com/photo/2024/06/13/05/31/men-8826710_1280.jpg" 
+  alt="Pixabay Image" 
+  className="carousel-image"
+  style={{ width: "1400px", height: "550px", objectFit: "cover", }} 
+/>,
+<img 
+  src="https://cdn.pixabay.com/photo/2015/03/18/06/03/women-678849_1280.jpg" 
+  alt="Pixabay Image" 
+  className="carousel-image"
+  style={{ width: "1400px", height: "550px", objectFit: "cover", }} 
+/>,
+
 ];
 
 const MainCarousal  = () => (
     <AliceCarousel
-        mouseTracking
         items={items}
-        controlsStrategy="alternate"
+        disableButtonsControls
+        autoPlay
+        autoPlayInterval={1000}
+        infinite
     />
 );
 
