@@ -22,8 +22,8 @@ const HomeSectionCarousal = () => {
         />
         <button
           variant="contained"
-          className="z-50"
-          sx={{ position: "absolute", top: "8rem", right: "0rem", transform:"translateX(50%) rotate(90deg)"}}
+          className="z-50 absolute top-1/2 left-2 transform -translate-y-1/2"
+          sx={{ position: "absolute", top: "50%", right: "0rem", transform:"translateY(-50%) rotate(90deg)"}}
           color="white"
           aria-label="next"
         >
