@@ -7,9 +7,9 @@ const HomeSectionCaed = () => {
         <img
           className="object-cover object-top h-full
             w-full"
-          src="https://rukminim2.flixcart.com/image/612/612/xif0q/kurta/2/t/z/m-356-tibra-collection-original-imagyzk9uhsh3ukz.jpeg?q=70"
+          src="https://i.pinimg.com/550x/86/f6/e0/86f6e080c701806d05a1027e022fbcf7.jpg"
           alt=""
-        />
+        />  
       </div>
       <div className="p-4">
         <h3 className="text-lg font-medium text-gray-900">Nofilter</h3>
