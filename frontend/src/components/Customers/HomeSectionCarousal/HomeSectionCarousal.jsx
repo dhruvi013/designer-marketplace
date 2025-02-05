@@ -55,7 +55,7 @@ const HomeSectionCarousal = () => {
           touchTracking
           disableDotsControls
           disableButtonsControls
-          onSlideChanged={handleSlideChange} // ✅ Track Slide Changes
+          onSlideChanged={handleSlideChange} //  Track Slide Changes
         />
 
         {/* Right Arrow Button (Hidden on Last Slide) */}

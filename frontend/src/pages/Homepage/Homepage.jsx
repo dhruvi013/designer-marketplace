@@ -16,9 +16,9 @@ const Homepage = () => {
   return (
     <div>
       <MainCarousal />
-      <div className="space-y-8"> {/* ✅ Adds spacing between rows */}
+      <div className="space-y-8"> {/*  Adds spacing between rows */}
         {sections.map((section, index) => (
-          <div key={index} className="py-4"> {/* ✅ Adds padding between carousels */}
+          <div key={index} className="py-4"> {/*  Adds padding between carousels */}
             <HomeSectionCarousal title={section.title} data={section.data} />
           </div>
         ))}
