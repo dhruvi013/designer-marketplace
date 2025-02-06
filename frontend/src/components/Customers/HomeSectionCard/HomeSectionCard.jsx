@@ -9,7 +9,7 @@ const HomeSectionCaed = () => {
             w-full"
           src="https://i.pinimg.com/550x/86/f6/e0/86f6e080c701806d05a1027e022fbcf7.jpg"
           alt=""
-        />  
+        />
       </div>
       <div className="p-4">
         <h3 className="text-lg font-medium text-gray-900">Nofilter</h3>
