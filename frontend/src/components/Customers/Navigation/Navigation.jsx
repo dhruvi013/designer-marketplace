@@ -1,10 +1,20 @@
 import { FaSearch, FaUser, FaShoppingBag, FaHeart } from "react-icons/fa";
+import { useEffect } from "react";
+
+// Import Google Fonts for custom font
+import "@fontsource/poppins"; // You can change this to any font you like
+import "@fontsource/montserrat"; // Import Montserrat font
+import "@fontsource/lobster"; // Import Lobster font
+
+
 
 const Navbar = () => {
   return (
     <nav className="flex justify-between items-center px-12 py-6 shadow-md bg-white">
       {/* Logo */}
-      <div className="text-2xl font-bold text-[#427f9b] tracking-wide">VastraVibe</div>
+      <div className="text-4xl font-bold text-[#427f9b] tracking-wide" style={{ fontFamily: 'Lobster, cursive' }}>
+        VastraVibe
+      </div>
 
       {/* Navigation Links */}
       <ul className="flex space-x-12 text-lg font-semibold">
