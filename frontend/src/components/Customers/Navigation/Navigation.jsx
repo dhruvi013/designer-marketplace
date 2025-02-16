@@ -10,7 +10,7 @@ import "@fontsource/lobster"; // Import Lobster font
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-between items-center px-12 py-6 shadow-md bg-white">
+    <nav className="flex justify-between items-center px-12 py-5 shadow-md bg-white">
       {/* Logo */}
       <div className="text-4xl font-bold text-[#427f9b] tracking-wide" style={{ fontFamily: 'Lobster, cursive' }}>
         VastraVibe
