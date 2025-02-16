@@ -4,6 +4,8 @@ import MainCarousal from "../../components/Customers/HomeCarousal/MainCarousal";
 import FashionDifference from "../../components/Customers/FashionDifference/FashionDifference";
 import BestSeller from "../../components/Customers/BestSeller/BestSeller";
 import ShopByCategory from "../../components/Customers/ShopByCategory/ShopByCategory";
+import LatestCollection from "../../components/Customers/LatestCollection/LateshCollection";
+import PoliciesSection from "../../components/Customers/PoliciesSection/PoliciesSection";
 
 const HomePage = ({ sections }) => {
   return (
@@ -17,6 +19,10 @@ const HomePage = ({ sections }) => {
       <BestSeller />
 
       <ShopByCategory />
+
+      <LatestCollection />
+
+      <PoliciesSection />
     </div>
   );
 };

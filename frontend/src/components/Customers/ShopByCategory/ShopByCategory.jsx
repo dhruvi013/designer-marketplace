@@ -14,16 +14,16 @@ const ShopByCategory = () => {
 
     ],
     Men: [
-      { name: "Sherwani", image: "https://cdn.pixabay.com/photo/2022/03/16/17/18/man-7072064_1280.jpg" },
-      { name: "Kurta", image: "https://cdn.pixabay.com/photo/2022/04/06/14/33/man-7114792_1280.jpg" },
-      { name: "Blazer", image: "https://cdn.pixabay.com/photo/2016/03/27/19/46/man-1283576_1280.jpg" },
-      { name: "Suits", image: "https://cdn.pixabay.com/photo/2016/11/29/05/34/businessman-1868730_1280.jpg" },
+      { name: "Sherwani", image: "https://www.textileexport.in/media/mceu_25458221331689939579870.jpg" },
+      { name: "Shirts", image: "https://bananaclub.co.in/cdn/shop/files/BlackLeafEmbroideryShirt_1.jpg?v=1738819595&width=500" },
+      { name: "Blazer", image: "https://imagescdn.louisphilippe.com/img/app/product/3/39755988-15864808.jpg?auto=format&w=390" },
+      { name: "T-shirts", image: "https://images.bewakoof.com/t320/men-s-skipper-blue-hulk-graphic-printed-t-shirt-659595-1738821954-1.jpg" },
     ],
     Kids: [
-      { name: "Frocks", image: "https://cdn.pixabay.com/photo/2023/08/14/05/37/kid-8190003_1280.jpg" },
-      { name: "Ethnic Wear", image: "https://cdn.pixabay.com/photo/2018/01/15/21/24/child-3089914_1280.jpg" },
-      { name: "Casuals", image: "https://cdn.pixabay.com/photo/2022/06/17/06/19/girl-7268095_1280.jpg" },
-      { name: "Party Wear", image: "https://cdn.pixabay.com/photo/2016/03/27/21/16/kids-1283968_1280.jpg" },
+      { name: "Frocks", image: "https://i.pinimg.com/736x/26/b0/47/26b047d8305e53a352479ec99e314863.jpg" },
+      { name: "Ethnic Wear", image: "https://www.fayonkids.com/cdn/shop/products/fayon-kids-red-bandhej-kurta-off-white-salwar-for-boys-37173292630272.jpg?v=1655208174&width=533" },
+      { name: "Casuals", image: "https://totdot.in/cdn/shop/files/undefined_-_Imgur_22.jpg?v=1729247226&width=613" },
+      { name: "Party Wear", image: "https://www.okboss.co.in/assets/img/home/boysrow1/kids%20musterd%20jacket%20with%20white%20tshirt%20party%20wear%20dress.jpg" },
     ],
   };
 
