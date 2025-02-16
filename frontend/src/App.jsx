@@ -1,12 +1,12 @@
 import Footer from "./components/Customers/Footer/Footer";
-import Navigation from "./components/Customers/Navigation/Navigation";
+import Navbar from "./components/Customers/Navigation/Navigation";
 import ProductPage from "./components/Customers/Products/ProductPage";
 import HomePage from "./pages/Homepage/Homepage";
 
 const App = () => {
   return (
     <div className="">
-      <Navigation />
+      <Navbar />
       <div>
         {/* <ProductPage /> */}
         <HomePage />
