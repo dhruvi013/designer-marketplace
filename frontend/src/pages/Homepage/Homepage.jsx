@@ -6,6 +6,7 @@ import BestSeller from "../../components/Customers/BestSeller/BestSeller";
 import ShopByCategory from "../../components/Customers/ShopByCategory/ShopByCategory";
 import LatestCollection from "../../components/Customers/LatestCollection/LateshCollection";
 import PoliciesSection from "../../components/Customers/PoliciesSection/PoliciesSection";
+import FashionShowSubscription from "../../components/Customers/Events/FashionShowSubscription";
 
 const HomePage = ({ sections }) => {
   return (
@@ -23,6 +24,8 @@ const HomePage = ({ sections }) => {
       <LatestCollection />
 
       <PoliciesSection />
+
+      <FashionShowSubscription />
     </div>
   );
 };
