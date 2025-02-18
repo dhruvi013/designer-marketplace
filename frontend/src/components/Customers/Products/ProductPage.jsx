@@ -143,10 +143,10 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row bg-blue-50 min-h-screen p-4">
+    <div className="flex flex-col lg:flex-row bg-white-50 min-h-screen p-4 py-24">
       {/* Sidebar */}
       <aside className={`w-full lg:w-1/4 p-4  transition-all ${showFilters ? 'block' : 'hidden lg:block'}`}>
-        <h2 className="text-xl font-bold mb-4 text-blue-600">Filters</h2>
+        <h2 className="text-xl font-bold mb-4 text-black-600">Filters</h2>
 
         {Object.keys(filters).map((category) => (
           <div key={category} className="mb-4">
@@ -195,7 +195,7 @@ const ProductPage = () => {
 
       {/* Product List */}
       <section className="w-full lg:w-3/4 p-4">
-        <h2 className="text-2xl font-bold text-blue-600 mb-4">Products</h2>
+        <h2 className="text-2xl font-bold text-black-600 mb-4">All Collections  </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {products.map((product) => (
             <div
