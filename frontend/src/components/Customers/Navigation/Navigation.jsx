@@ -13,7 +13,7 @@ const Navbar = () => {
         </div>
 
         {/* Navigation Links */}
-        <ul className="flex space-x-12 text-lg font-semibold">
+        <ul className="flex space-x-12 text-[16.5px] font-semibold">
           <li className="text-black cursor-pointer">HOME</li>
           <li className="text-gray-600 hover:text-black cursor-pointer">COLLECTION</li>
           <li className="text-gray-600 hover:text-black cursor-pointer">BLOG</li>
