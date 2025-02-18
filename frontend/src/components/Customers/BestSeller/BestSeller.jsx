@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const BestSeller = () => {
   const bestSellers = [
@@ -9,24 +10,44 @@ const BestSeller = () => {
   ];
 
   return (
-    <div className="py-16 bg-[#f9f9f9] text-center">
+    <motion.div
+      className="py-16 bg-[#f9f9f9] text-center"
+      initial={{ opacity: 0, y: 50 }} // Start hidden
+      whileInView={{ opacity: 1, y: 0 }} // Animate when in view
+      viewport={{ once: true, amount: 0.2 }} // Only runs once when 20% of the section is visible
+      transition={{ duration: 0.8, ease: "easeOut" }} // Smooth effect
+    >
       <h2 className="text-4xl font-bold text-gray-900 mb-2">Best Seller</h2>
       <p className="text-gray-600 mb-8">Discover Best Seller Products</p>
-      <div className="flex justify-center gap-6 flex-wrap">
+      
+      <motion.div
+        className="flex justify-center gap-6 flex-wrap"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+        }}
+      >
         {bestSellers.map((item, index) => (
-          <div
+          <motion.div
             key={index}
             className="bg-white rounded-2xl shadow-lg w-64 h-96 overflow-hidden transition-transform duration-300 hover:shadow-2xl hover:-translate-y-2"
+            variants={{
+              hidden: { opacity: 0, y: 50 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+            }}
           >
-            <img
+            <motion.img
               src={item.image}
               alt={`Best Seller ${index + 1}`}
               className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
             />
-          </div>
+          </motion.div>
         ))}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

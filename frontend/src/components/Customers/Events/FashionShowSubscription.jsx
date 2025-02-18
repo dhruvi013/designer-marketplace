@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Mail } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function FashionShowSubscription() {
   const [email, setEmail] = useState("");
@@ -9,7 +10,13 @@ export default function FashionShowSubscription() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-[90vh] p-4">
+    <motion.div
+      className="flex justify-center items-center min-h-[90vh] p-4"
+      initial={{ opacity: 0, y: 20 }} // Initial state: invisible and slightly down
+      whileInView={{ opacity: 1, y: 0 }} // When in view: visible and in normal position
+      viewport={{ once: true }} // Trigger animation once when the section enters the view
+      transition={{ duration: 0.8 }} // Smooth transition duration
+    >
       <div className="bg-gradient-to-r from-purple-100 to-blue-100 p-10 rounded-3xl text-center shadow-lg max-w-4xl w-full flex flex-col justify-center" style={{ minHeight: '400px' }}>
         <div className="flex justify-center mb-4">
           <Mail className="text-purple-600 w-12 h-12" />
@@ -34,6 +41,6 @@ export default function FashionShowSubscription() {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

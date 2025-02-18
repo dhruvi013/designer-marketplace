@@ -1,6 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const ShopByCategory = () => {
+  const [visibleCategories, setVisibleCategories] = useState({
+    Women: false,
+    Men: false,
+    Kids: false,
+  });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["shop-women", "shop-men", "shop-kids"];
+      sections.forEach((section) => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.75) {
+            setVisibleCategories((prev) => ({ ...prev, [section]: true }));
+          }
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const categories = {
     Women: [
       { name: "Saree", image: "https://photo.7ya.ru/ph/2013/9/9/1378759949453.jpg" },
@@ -11,7 +40,6 @@ const ShopByCategory = () => {
       { name: "Top", image: "https://farm1.staticflickr.com/752/21667606332_6c6edc3b24_o.jpg" },
       { name: "Shorts", image: "https://avatars.mds.yandex.net/i?id=55316eb14d20a3773561a61fbbede0b54aab31ad-9806046-images-thumbs&n=13" },
       { name: "Bodycon", image: "https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/26861290/2024/1/10/274430dc-3c02-4c45-af19-0028e02986171704889548982StyleCastMaroonBodyconDress1.jpg" },
-
     ],
     Men: [
       { name: "Sherwani", image: "https://www.textileexport.in/media/mceu_25458221331689939579870.jpg" },
@@ -33,23 +61,26 @@ const ShopByCategory = () => {
       <p className="text-lg text-gray-600 mb-14">Discover a variety of categories tailored to your style.</p>
 
       {Object.entries(categories).map(([category, items], index) => (
-        <div key={index} className="mb-20">
+        <div key={index} id={`shop-${category.toLowerCase()}`} className="mb-20">
           <h3 className="text-4xl font-semibold text-gray-800 mb-10">{category}</h3>
           <div className="flex justify-center gap-8 flex-wrap">
             {items.map((item, idx) => (
-              <div
+              <motion.div
                 key={idx}
-                className="bg-white rounded-2xl shadow-lg w-64 h-96 overflow-hidden transition-transform duration-300 hover:shadow-2xl hover:-translate-y-2"
+                initial={{ opacity: 0, rotateY: idx % 2 === 0 ? 90 : -90 }}
+                animate={visibleCategories[`shop-${category.toLowerCase()}`] ? { opacity: 1, rotateY: 0 } : {}}
+                transition={{ duration: 0.8, delay: idx * 0.2 }}
+                className="bg-white rounded-2xl shadow-lg w-64 h-96 overflow-hidden relative group"
               >
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-full object-cover object-top transition-transform duration-300 hover:scale-105"
+                  className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="absolute bottom-4 left-4 text-white text-lg font-bold bg-black/50 px-2 py-1 rounded">
+                <div className="absolute bottom-4 left-4 text-white text-lg font-bold bg-black/50 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   {item.name}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

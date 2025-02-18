@@ -1,5 +1,6 @@
 import { FavoriteBorder, ShoppingCart } from "@mui/icons-material";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function LatestCollection() {
   const products = [
@@ -46,18 +47,42 @@ export default function LatestCollection() {
   ];
 
   return (
-    <section className="py-12 px-6 mt-20">
-      <h2 className="text-4xl font-bold text-center mb-4">Latest Collection</h2>
+    <motion.section
+      className="py-12 px-6 mt-20"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
+      {/* Headline Animation */}
+      <motion.h2
+        className="text-4xl font-bold text-center mb-4"
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        Latest Collection
+      </motion.h2>
+
       <p className="text-lg text-gray-500 text-center mb-8">
         Discover the Latest Collection with a variety of styles.
       </p>
 
       <div className="flex flex-wrap justify-center gap-6 mt-20">
         {products.map((product, index) => (
-          <Card key={index} product={product} />
+          <motion.div
+            key={index}
+            className="w-[220px]"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: index * 0.2 }} // Staggered animation for each card
+          >
+            <Card product={product} />
+          </motion.div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }
 
@@ -66,7 +91,7 @@ function Card({ product }) {
 
   return (
     <div
-      className={`relative w-[220px] bg-white rounded-lg shadow-lg transition-all duration-300 ${
+      className={`relative w-full bg-white rounded-lg shadow-lg transition-all duration-300 ${
         hover ? "scale-105 shadow-2xl" : ""
       }`}
       onMouseEnter={() => setHover(true)}
@@ -76,7 +101,7 @@ function Card({ product }) {
       <img
         src={product.image}
         alt={product.name}
-        className="w-full h-[280px] object-cover object-top "
+        className="w-full h-[280px] object-cover object-top"
       />
 
       {/* Content */}
