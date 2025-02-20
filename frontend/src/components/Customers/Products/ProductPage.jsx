@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaFilter, FaHeart, FaShoppingCart } from "react-icons/fa"; // Importing icons
+import { FaFilter, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 
 const filters = {
   brand: ["Nike", "Adidas", "Puma", "Reebok"],
@@ -22,7 +22,7 @@ const products = [
     price: 999,
     discount: "20% Off",
     brand: "Nike",
-    imageSrc: "https://via.placeholder.com/300",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
   },
   {
     id: 2,
@@ -40,6 +40,63 @@ const products = [
     brand: "Puma",
     imageSrc: "https://via.placeholder.com/300",
   },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+
 ];
 
 const ProductPage = () => {
@@ -70,31 +127,30 @@ const ProductPage = () => {
       {/* Product List */}
       <section className="w-full lg:w-3/4 p-4">
         <h2 className="text-2xl font-bold text-black-600 mb-4">All Collections</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {products.map((product) => (
-            <div key={product.id} className="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 border">
-              <div className="relative">
-                <img src={product.imageSrc} alt={product.name} className="mb-4 w-full h-64 object-cover rounded-md" />
-                <div className="absolute top-2 right-2 flex space-x-2">
-                  <button className="bg-white p-2 rounded-full shadow-md">
-                    <FaHeart className="text-gray-600" />
-                  </button>
-                  <button className="bg-white p-2 rounded-full shadow-md">
-                    <FaShoppingCart className="text-gray-600" />
-                  </button>
+            <div key={product.id} className="bg-white  shadow-md border transform transition-all duration-300 hover:scale-105 relative group overflow-hidden">
+              <div className="w-full h-50 overflow-hidden">
+                <img src={product.imageSrc} alt={product.name} className="w-full h-48 object-cover object-top" style={{ objectPosition: 'top' }} />
+              </div>
+              <div className="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button className="bg-white p-2 rounded-full shadow-md">
+                  <FaRegHeart className="text-gray-600" />
+                </button>
+                <button className="bg-white p-2 rounded-full shadow-md">
+                  <FaShoppingCart className="text-gray-600" />
+                </button>
+              </div>
+              <div className="p-3">
+                <h3 className="font-bold text-md text-gray-900">{product.name}</h3>
+                <p className="text-gray-700 text-sm mt-1">Brand: {product.brand}</p>
+                <div className="flex items-center space-x-2 mt-2">
+                  <p className="text-gray-900 font-semibold text-md">₹{product.price}</p>
+                  <p className="text-gray-500 line-through text-xs">₹{(product.price * 1.2).toFixed(0)}</p>
+                  <p className="text-green-600 font-semibold text-xs">{product.discount}</p>
                 </div>
+                <p className="text-green-600 font-semibold text-xs">Save ₹{(product.price * 0.2).toFixed(0)}</p>
               </div>
-              <h3 className="font-bold text-lg text-gray-900">{product.name}</h3>
-              <p className="text-gray-700 text-sm mt-1">Brand: {product.brand}</p>
-              <div className="flex items-center space-x-2 mt-2">
-                <p className="text-gray-900 font-semibold text-lg">₹{product.price}</p>
-                <p className="text-gray-500 line-through text-sm">₹{(product.price * 1.2).toFixed(0)}</p>
-                <p className="text-green-600 font-semibold text-sm">{product.discount}</p>
-              </div>
-              <p className="text-green-600 font-semibold text-sm">Save ₹{(product.price * 0.2).toFixed(0)}</p>
-              <button className="mt-3 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-300">
-                Add to Cart
-              </button>
             </div>
           ))}
         </div>
