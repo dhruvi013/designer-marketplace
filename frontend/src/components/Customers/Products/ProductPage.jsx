@@ -25,6 +25,95 @@ const products = [
     imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
   },
   {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+  {
+    id: 1,
+    name: "Casual Shirt",
+    price: 999,
+    discount: "20% Off",
+    brand: "Nike",
+    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
+  },
+
+  {
     id: 2,
     name: "Running Shoes",
     price: 1999,
@@ -39,81 +128,27 @@ const products = [
     discount: "50% Off",
     brand: "Puma",
     imageSrc: "https://via.placeholder.com/300",
-  },
-  {
-    id: 1,
-    name: "Casual Shirt",
-    price: 999,
-    discount: "20% Off",
-    brand: "Nike",
-    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
-  },
-  {
-    id: 1,
-    name: "Casual Shirt",
-    price: 999,
-    discount: "20% Off",
-    brand: "Nike",
-    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
-  },
-  {
-    id: 1,
-    name: "Casual Shirt",
-    price: 999,
-    discount: "20% Off",
-    brand: "Nike",
-    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
-  },
-  {
-    id: 1,
-    name: "Casual Shirt",
-    price: 999,
-    discount: "20% Off",
-    brand: "Nike",
-    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
-  },
-  {
-    id: 1,
-    name: "Casual Shirt",
-    price: 999,
-    discount: "20% Off",
-    brand: "Nike",
-    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
-  },
-  {
-    id: 1,
-    name: "Casual Shirt",
-    price: 999,
-    discount: "20% Off",
-    brand: "Nike",
-    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
-  },
-  {
-    id: 1,
-    name: "Casual Shirt",
-    price: 999,
-    discount: "20% Off",
-    brand: "Nike",
-    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
-  },
+  }
+];
 
+const sortingOptions = [
+  "Relevant",
+  "Price Low to High",
+  "Price High to Low",
 ];
 
 const ProductPage = () => {
-  const [selectedFilters, setSelectedFilters] = useState({});
-  const [price, setPrice] = useState(2000);
+  const [selectedSort, setSelectedSort] = useState("Relevant");
   const [showFilters, setShowFilters] = useState(false);
-  const minPrice = 500;
-  const maxPrice = 5000;
 
   return (
-    <div className="flex flex-col lg:flex-row bg-white min-h-screen p-4 py-24">
+    <div className="flex flex-col lg:flex-row bg-white min-h-screen p-4 py-24 relative">
       {/* Sidebar */}
       <aside className={`w-full lg:w-1/4 p-4 transition-all ${showFilters ? 'block' : 'hidden lg:block'}`}>
         <h2 className="text-xl font-bold mb-4 text-black-600">Filters</h2>
         {Object.keys(filters).map((category) => (
           <div key={category} className="mb-4">
-            <h3 className="font-semibold text-gray-700">{category}</h3>
+            <h3 className="font-semibold text-gray-700 capitalize">{category}</h3>
             {filters[category].map((option) => (
               <label key={option} className="flex items-center space-x-2 mt-1">
                 <input type="checkbox" />
@@ -126,10 +161,29 @@ const ProductPage = () => {
 
       {/* Product List */}
       <section className="w-full lg:w-3/4 p-4">
-        <h2 className="text-2xl font-bold text-black-600 mb-4">All Collections</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold text-black-600">All Collections</h2>
+          <div>
+            <label htmlFor="sort" className="mr-2 font-semibold text-gray-700">
+              Sort by:
+            </label>
+            <select
+              id="sort"
+              value={selectedSort}
+              onChange={(e) => setSelectedSort(e.target.value)}
+              className="border border-gray-300 rounded p-2 bg-white shadow-sm"
+            >
+              {sortingOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {products.map((product) => (
-            <div key={product.id} className="bg-white  shadow-md border transform transition-all duration-300 hover:scale-105 relative group overflow-hidden">
+            <div key={product.id} className="bg-white shadow-md border transform transition-all duration-300 hover:scale-105 relative group overflow-hidden">
               <div className="w-full h-50 overflow-hidden">
                 <img src={product.imageSrc} alt={product.name} className="w-full h-48 object-cover object-top" style={{ objectPosition: 'top' }} />
               </div>
