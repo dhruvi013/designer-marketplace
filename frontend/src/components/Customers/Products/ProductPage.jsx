@@ -14,7 +14,7 @@ const filters = {
   ratings: ["4★ & above", "3★ & above", "2★ & above"],
   offers: ["Bank Offer", "Combo Offer", "No Cost EMI"],
 };
-
+                
 const products = [
   {
     id: 1,
