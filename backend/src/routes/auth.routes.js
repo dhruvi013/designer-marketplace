@@ -1,5 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken"); // Add this line
 const User = require("../models/users");
 
 const router = express.Router();
@@ -33,17 +34,31 @@ router.post("/login", async (req, res) => {
         
         // Check if user exists
         const user = await User.findOne({ where: { email } });
-        if (!user) return res.status(400).json({ message: "User not found" });
+        if (!user) return res.status(400).json({ success: false, message: "User not found" });
 
         // Validate password
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+        if (!isMatch) return res.status(400).json({ success: false, message: "Invalid credentials" });
 
+        // Generate JWT token
+        const token = jwt.sign(
+            { id: user.id, email: user.email },
+            "your-jwt-secret",
+            { expiresIn: "24h" }
+        );
+
+        // Set session
         req.session.user = { id: user.id, email: user.email };
-        res.json({ message: "Login successful", user: req.session.user });
+        
+        res.json({
+            success: true,
+            message: "Login successful",
+            user: { id: user.id, email: user.email },
+            token
+        });
     } catch (error) {
         console.error("Login Error:", error);
-        res.status(500).json({ message: "Server error" });
+        res.status(500).json({ success: false, message: "Server error" });
     }
 });
 

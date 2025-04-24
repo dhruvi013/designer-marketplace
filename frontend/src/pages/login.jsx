@@ -13,18 +13,22 @@ const Login = () => {
         setError(null);
 
         try {
-            const response = await axios.post("http://localhost:5000/auth/login", {
-                email,
-                password,
-            });
+            const response = await axios.post(
+                "http://localhost:5000/auth/login",
+                { email, password },
+                { withCredentials: true } // ⬅️ Needed to send/receive cookies
+            );
 
-            if (response.data.success) {
-                localStorage.setItem("token", response.data.token);
+            if (response.data?.message === "Login successful") {
+                // Store user data
+                localStorage.setItem("user", JSON.stringify(response.data.user));
                 alert("Login successful!");
-                navigate("/dashboard"); // Redirect to dashboard
+                navigate("/dashboard");
+            } else {
+                setError("Invalid credentials");
             }
         } catch (error) {
-            setError(error.response?.data?.message || "Login failed");
+            setError(error.response?.data?.message || "Login failed. Please try again.");
         }
     };
 

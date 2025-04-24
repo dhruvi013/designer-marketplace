@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-    const [name, setName] = useState("");
+    const [name, setName] = useState("");          
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
@@ -20,11 +20,11 @@ const Register = () => {
                 password,
             });
 
-            if (response.data.success) {
+            if (response.status === 201) {
                 alert("Registration successful!");
-                navigate("/login"); // Redirect to login page
+                navigate("/login");
             }
-        } catch (error) {
+            } catch (error) {
             setError(error.response?.data?.message || "Registration failed");
         }
     };

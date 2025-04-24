@@ -7,31 +7,31 @@ const items = [
     src="https://www.karagiri.com/cdn/shop/collections/Lehengas_web_Banner.webp?v=1699417043&width=1920"
     alt="Pixabay Image"
     className="carousel-image"
-    style={{ width: "1400px", height: "550px", objectFit: "cover" }}
+    style={{ width: "1700px", height: "750px", objectFit: "cover" }}
   />,
   <img
     src="https://img.freepik.com/premium-photo/exclusive-fashion-deals-background-web-banner_1280472-3489.jpg?w=1060"
     alt="Pixabay Image"
     className="carousel-image"
-    style={{ width: "1400px", height: "550px", objectFit: "cover" }}
+    style={{ width: "1700px", height: "750px", objectFit: "cover" }}
   />,
   <img
     src="https://wallpapershigh.com/wp-content/uploads/fashion-background-1-5.webp"
     alt="Pixabay Image"
     className="carousel-image"
-    style={{ width: "1400px", height: "550px", objectFit: "cover" }}
+    style={{ width: "1700px", height: "750px", objectFit: "cover" }}
   />,
   <img
     src="https://i.ebayimg.com/00/s/ODAwWDEyODA=/z/aUoAAOSwGYVW9XIJ/$_45.JPG"
     alt="Pixabay Image"
     className="carousel-image"
-    style={{ width: "1400px", height: "550px", objectFit: "cover" }}
+    style={{ width: "1700px", height: "750px", objectFit: "cover" }}
   />,
   <img
     src="https://images8.alphacoders.com/551/551506.jpg"
     alt="Pixabay Image"
     className="carousel-image"
-    style={{ width: "1400px", height: "550px", objectFit: "cover" }}
+    style={{ width: "1700px", height: "750px", objectFit: "cover" }}
   />,
 ];
 

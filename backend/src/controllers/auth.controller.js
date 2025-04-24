@@ -1,6 +1,11 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/users');
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+
 
 const register = async (req, res) => {
     try {
@@ -38,6 +43,7 @@ const register = async (req, res) => {
         });
 
         res.status(201).json({
+            success: true,
             message: "User registered successfully",
             user: {
                 id: user.id,

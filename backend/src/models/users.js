@@ -31,4 +31,9 @@ User.beforeCreate(async (user) => {
     user.password = await bcrypt.hash(user.password, 10);
 });
 
+// Add method to compare passwords
+User.prototype.comparePassword = async function(candidatePassword) {
+    return await bcrypt.compare(candidatePassword, this.password);
+};
+
 module.exports = User;
