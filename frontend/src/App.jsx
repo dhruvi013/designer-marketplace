@@ -9,6 +9,9 @@ import AdminLogin from "./Pages/AdminLogin";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import AdminRegister from "./Pages/AdminRegister";
 import Additems from "./Pages/Admin/AddItems";
+import Categories from "./Pages/Admin/Categories";
+import ListItems from "./Pages/Admin/ListItems";
+import Orders from "./Pages/Admin/Orders";
 
 const App = () => {
   return (
@@ -23,6 +26,9 @@ const App = () => {
         <Route path="/adminregister" element={<AdminRegister />} />
         <Route path="/admindashboard" element={<AdminDashboard />} />
         <Route path="/additem" element={<Additems />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/listitem" element={<ListItems />} />
+        <Route path="/order" element={<Orders />} />
 
 
       </Routes>

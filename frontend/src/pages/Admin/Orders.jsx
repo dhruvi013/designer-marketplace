@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaList, FaShoppingBag, FaSignOutAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-const AddItem = () => {
+const Orders = () => {
   const [images, setImages] = useState([]);
   const [video, setVideo] = useState(null);
   const [productName, setProductName] = useState('');
@@ -69,7 +69,7 @@ const AddItem = () => {
     <FaList /> <span>Dashboard</span>
   </Link>
   
-  <Link to="/additem" className="w-full text-left flex items-center space-x-2  text-pink-600 font-semibold">
+  <Link to="/additem" className="w-full text-left flex items-center space-x-2">
     <FaList /> <span>Add Items</span>
   </Link>
   
@@ -77,7 +77,7 @@ const AddItem = () => {
     <FaList /> <span>List Items</span>
   </Link>
   
-  <Link to="/order" className="w-full text-left flex items-center space-x-2">
+  <Link to="/order" className="w-full text-left flex items-center space-x-2  text-pink-600 font-semibold">
     <FaShoppingBag /> <span>Orders</span>
   </Link>
   
@@ -286,4 +286,4 @@ const AddItem = () => {
   );
 };
 
-export default AddItem;
+export default Orders;

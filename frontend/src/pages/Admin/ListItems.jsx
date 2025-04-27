@@ -1,8 +1,9 @@
+import { ListItem } from '@mui/material';
 import React, { useState } from 'react';
 import { FaList, FaShoppingBag, FaSignOutAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-const AddItem = () => {
+const ListItems = () => {
   const [images, setImages] = useState([]);
   const [video, setVideo] = useState(null);
   const [productName, setProductName] = useState('');
@@ -65,15 +66,15 @@ const AddItem = () => {
           <img src="https://i.ibb.co/6st3HXP/adaa-jaipur-logo.png" alt="Logo" className="h-14 mx-auto" />
         </div>
         <nav className="space-y-4">
-  <Link to="/admindashboard" className="w-full text-left flex items-center space-x-2">
+  <Link to="/admindashboard" className="w-full text-left flex items-center space-x-2 ">
     <FaList /> <span>Dashboard</span>
   </Link>
   
-  <Link to="/additem" className="w-full text-left flex items-center space-x-2  text-pink-600 font-semibold">
+  <Link to="/additem" className="w-full text-left flex items-center space-x-2">
     <FaList /> <span>Add Items</span>
   </Link>
   
-  <Link to="/listitem" className="w-full text-left flex items-center space-x-2">
+  <Link to="/listitem" className="w-full text-left flex items-center space-x-2 text-pink-600 font-semibold">
     <FaList /> <span>List Items</span>
   </Link>
   
@@ -286,4 +287,4 @@ const AddItem = () => {
   );
 };
 
-export default AddItem;
+export default ListItems;

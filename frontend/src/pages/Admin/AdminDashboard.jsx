@@ -37,11 +37,11 @@ const AdminDashboard = () => {
     <FaList /> <span>Add Items</span>
   </Link>
   
-  <Link to="/list-items" className="w-full text-left flex items-center space-x-2">
+  <Link to="/listitem" className="w-full text-left flex items-center space-x-2">
     <FaList /> <span>List Items</span>
   </Link>
   
-  <Link to="/orders" className="w-full text-left flex items-center space-x-2">
+  <Link to="/order" className="w-full text-left flex items-center space-x-2">
     <FaShoppingBag /> <span>Orders</span>
   </Link>
   
