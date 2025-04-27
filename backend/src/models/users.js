@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
-const bcrypt = require("bcryptjs");
 
 const User = sequelize.define('User', {
     id: {
@@ -26,14 +25,14 @@ const User = sequelize.define('User', {
     timestamps: true
 });
 
-// Hash password before saving
-User.beforeCreate(async (user) => {
-    user.password = await bcrypt.hash(user.password, 10);
-});
+// Remove the password hashing before saving, store plain text password
+// User.beforeCreate(async (user) => {
+//     user.password = await bcrypt.hash(user.password, 10);
+// });
 
-// Add method to compare passwords
+// Add method to compare passwords (optional, but will compare plain text now)
 User.prototype.comparePassword = async function(candidatePassword) {
-    return await bcrypt.compare(candidatePassword, this.password);
+    return candidatePassword === this.password;  // Direct comparison without hashing
 };
 
 module.exports = User;

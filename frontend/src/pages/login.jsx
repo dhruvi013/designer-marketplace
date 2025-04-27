@@ -23,7 +23,9 @@ const Login = () => {
                 // Store user data
                 localStorage.setItem("user", JSON.stringify(response.data.user));
                 alert("Login successful!");
-                navigate("/dashboard");
+                
+                // Navigate to the HomePage after login
+                navigate("/");
             } else {
                 setError("Invalid credentials");
             }

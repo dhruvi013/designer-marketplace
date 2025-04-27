@@ -4,6 +4,7 @@ const session = require("express-session");
 const jwt = require("jsonwebtoken");
 const sequelize = require("./src/config/db");
 const authRoutes = require("./src/routes/auth.routes");
+require('dotenv').config();
 
 
 const app = express();
