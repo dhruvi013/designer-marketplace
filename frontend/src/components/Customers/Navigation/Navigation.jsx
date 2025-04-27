@@ -49,7 +49,7 @@ const Navbar = () => {
               <span className="absolute -top-1 -right-2 bg-black text-white text-xs rounded-full px-2">0</span>
             </Link>
           </div>
-          <Link to="/admin">
+          <Link to="/AdminRegister">
             <span className="font-bold text-lg cursor-pointer hover:text-[#42839b]">Admin</span>
           </Link>
         </div>

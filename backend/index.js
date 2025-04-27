@@ -4,6 +4,7 @@ const session = require("express-session");
 const jwt = require("jsonwebtoken");
 const sequelize = require("./src/config/db");
 const authRoutes = require("./src/routes/auth.routes");
+const adminRoutes = require("./src/routes/admin.routes");
 require('dotenv').config();
 
 
@@ -45,6 +46,8 @@ app.use(
 
 // ✅ Routes
 app.use("/auth", authRoutes);
+app.use("/auth", adminRoutes);       // Admin authentication routes
+
 
 // ✅ Database Sync
 sequelize.sync()

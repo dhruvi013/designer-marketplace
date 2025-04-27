@@ -5,6 +5,9 @@ import ProductPage from "./components/Customers/Products/ProductPage";
 import HomePage from "./pages/Homepage/Homepage";
 import Register from "./Pages/register";
 import Login from "./Pages/login";
+import AdminLogin from "./Pages/AdminLogin";
+import AdminDashboard from "./Pages/Admin/AdminDashboard";
+import AdminRegister from "./Pages/AdminRegister";
 
 const App = () => {
   return (
@@ -15,6 +18,10 @@ const App = () => {
         <Route path="/products" element={<ProductPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path="/adminregister" element={<AdminRegister />} />
+        <Route path="/admindashboard" element={<AdminDashboard />} />
+
 
       </Routes>
       <Footer />
