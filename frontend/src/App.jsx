@@ -8,6 +8,7 @@ import Login from "./Pages/login";
 import AdminLogin from "./Pages/AdminLogin";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import AdminRegister from "./Pages/AdminRegister";
+import Additems from "./Pages/Admin/AddItems";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/adminregister" element={<AdminRegister />} />
         <Route path="/admindashboard" element={<AdminDashboard />} />
+        <Route path="/additem" element={<Additems />} />
 
 
       </Routes>
