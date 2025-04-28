@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
-    const [name, setName] = useState("");          
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
@@ -14,29 +16,71 @@ const Register = () => {
         setError(null);
 
         try {
-            const response = await axios.post("http://localhost:5000/auth/register", {
-                name,
-                email,
-                password,
-            });
+            const response = await axios.post(
+                "http://localhost:5000/auth/register",
+                { name, email, password },
+                { withCredentials: true }
+            );
 
-            if (response.status === 201) {
-                alert("Registration successful!");
-                navigate("/login");
+            if (response.data) {
+                toast.success('Registration successful!', {
+                    position: "top-right",
+                    autoClose: 3500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    style: {
+                        background: '#fff',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '4px',
+                        padding: '16px',
+                        boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+                    },
+                    progressStyle: {
+                        background: '#22c55e'
+                    },
+                    onClose: () => {
+                        navigate("/login");
+                    }
+                });
             }
-            } catch (error) {
-            setError(error.response?.data?.message || "Registration failed");
+        } catch (error) {
+            const errorMessage = error.response?.data?.message || "Registration failed. Please try again.";
+            setError(errorMessage);
+            toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 3500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+            });
         }
     };
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            <ToastContainer
+                position="top-right"
+                autoClose={3500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className="max-w-md w-full bg-white p-8 shadow-lg rounded-md">
                 <h2 className="text-2xl font-bold text-center text-gray-900">Register</h2>
                 {error && <p className="text-red-500 text-center">{error}</p>}
                 <form className="mt-6" onSubmit={handleSubmit}>
                     <div>
-                        <label className="block text-gray-700">Full Name</label>
+                        <label className="block text-gray-700">Name</label>
                         <input
                             type="text"
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-1 focus:ring-blue-600"

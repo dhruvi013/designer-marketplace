@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const sequelize = require("./src/config/db");
 const authRoutes = require("./src/routes/auth.routes");
 const adminRoutes = require("./src/routes/admin.routes");
+const productRoutes = require('./src/routes/product.route');
 require('dotenv').config();
 
 
@@ -47,6 +48,7 @@ app.use(
 // ✅ Routes
 app.use("/auth", authRoutes);
 app.use("/auth", adminRoutes);       // Admin authentication routes
+app.use('/api/products', productRoutes);
 
 
 // ✅ Database Sync

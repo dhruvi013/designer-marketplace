@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminRegister = () => {
     const [email, setEmail] = useState("");
@@ -20,18 +22,54 @@ const AdminRegister = () => {
             );
 
             if (response.data?.message === "Registration successful") {
-                alert("Registration successful!");
-                navigate("/adminlogin"); // Redirect to the login page after successful registration
+                toast.success('Registration successful!', {
+                    position: "top-right",
+                    autoClose: 3500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    style: {
+                        background: '#fff',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '4px',
+                        padding: '16px',
+                        boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+                    },
+                    progressStyle: {
+                        background: '#22c55e'
+                    },
+                    onClose: () => {
+                        navigate("/adminlogin");
+                    }
+                });
             } else {
                 setError("Error in registration. Please try again.");
+                toast.error("Error in registration. Please try again.");
             }
         } catch (error) {
-            setError(error.response?.data?.message || "Registration failed. Please try again.");
+            const errorMessage = error.response?.data?.message || "Registration failed. Please try again.";
+            setError(errorMessage);
+            toast.error(errorMessage);
         }
     };
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            <ToastContainer
+                position="top-right"
+                autoClose={3500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className="max-w-md w-full bg-white p-8 shadow-lg rounded-md">
                 <h2 className="text-2xl font-bold text-center text-gray-900">Admin Registration</h2>
                 {error && <p className="text-red-500 text-center">{error}</p>}

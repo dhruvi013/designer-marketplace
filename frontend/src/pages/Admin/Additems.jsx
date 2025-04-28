@@ -259,25 +259,28 @@ const AddItem = () => {
                 type="checkbox"
                 checked={bestseller}
                 onChange={(e) => setBestseller(e.target.checked)}
-                className="mr-2"
+                className="form-checkbox h-5 w-5 text-blue-600"
               />
-              Bestseller
+              <span className="ml-2 text-gray-700">Bestseller</span>
             </label>
             <label className="inline-flex items-center">
               <input
                 type="checkbox"
                 checked={ecoFriendly}
                 onChange={(e) => setEcoFriendly(e.target.checked)}
-                className="mr-2"
+                className="form-checkbox h-5 w-5 text-green-600"
               />
-              Eco-Friendly
+              <span className="ml-2 text-gray-700">Eco-Friendly</span>
             </label>
           </div>
 
           {/* Submit Button */}
           <div className="mt-6">
-            <button type="submit" className="bg-black text-white px-6 py-2 rounded-md">
-              Add Product
+            <button
+              type="submit"
+              className="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 px-6 rounded-md"
+            >
+              Add Item
             </button>
           </div>
         </form>
