@@ -1,33 +1,23 @@
-// routes/productRoutes.js
 const express = require('express');
-const router = express.Router();
-const { addProduct } = require('../controllers/product.controller');
 const multer = require('multer');
-const path = require('path');
+const { addProduct } = require('../controllers/product.controller');
 
-// Multer Config
+const router = express.Router();
+
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    if (file.fieldname === 'images') {
-      cb(null, 'uploads/images/');
-    } else if (file.fieldname === 'video') {
-      cb(null, 'uploads/videos/');
-    }
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
   },
-  filename: function (req, file, cb) {
-    cb(null, `${Date.now()}_${file.originalname}`);
-  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
 });
 
-const upload = multer({ storage });
+const upload = multer({ storage: storage }).fields([
+  { name: 'images', maxCount: 4 },
+  { name: 'video', maxCount: 1 }
+]);
 
-router.post(
-  '/add-product',
-  upload.fields([
-    { name: 'images', maxCount: 4 },
-    { name: 'video', maxCount: 1 },
-  ]),
-  addProduct
-);
+router.post('/add-product', upload, addProduct);
 
 module.exports = router;

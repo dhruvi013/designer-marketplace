@@ -22,7 +22,7 @@ const Navbar = () => {
             <Link to="/products" className="text-gray-600 hover:text-[#427f9b] cursor-pointer">COLLECTION</Link>
           </li>
           <li>
-            <Link to="/blog" className="text-gray-600 hover:text-[#427f9b] cursor-pointer">BLOG</Link>
+            <Link to="/blogpage" className="text-gray-600 hover:text-[#427f9b] cursor-pointer">BLOG</Link>
           </li>
           <li>
             <Link to="/events" className="text-gray-600 hover:text-[#427f9b] cursor-pointer">EVENTS</Link>

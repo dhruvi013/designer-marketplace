@@ -12,6 +12,8 @@ import Additems from "./Pages/Admin/AddItems";
 import Categories from "./Pages/Admin/Categories";
 import ListItems from "./Pages/Admin/ListItems";
 import Orders from "./Pages/Admin/Orders";
+import BlogPage from "./Pages/BlogPage";
+import Events from "./Pages/Events";
 
 const App = () => {
   return (
@@ -29,6 +31,9 @@ const App = () => {
         <Route path="/categories" element={<Categories />} />
         <Route path="/listitem" element={<ListItems />} />
         <Route path="/order" element={<Orders />} />
+        <Route path="/blogpage" element={<BlogPage />} />
+        <Route path="/events" element={<Events />} />
+
 
 
       </Routes>
