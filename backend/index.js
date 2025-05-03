@@ -45,6 +45,10 @@ app.use(
     })
 );
 
+const path = require('path');
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
+
+
 // ✅ Routes
 app.use("/auth", authRoutes);
 app.use("/auth", adminRoutes);       // Admin authentication routes

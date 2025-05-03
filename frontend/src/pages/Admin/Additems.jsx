@@ -19,11 +19,10 @@ const AddItem = () => {
 
   const sizeOptions = ['S', 'M', 'L', 'XL', 'XXL'];
 
-  const handleImageChange = (e) => {
-    if (e.target.files) {
-      const fileList = Array.from(e.target.files);
-      setImages(fileList);
-    }
+  const handleImageChange = (e, index) => {
+    const updatedImages = [...images];
+    updatedImages[index] = e.target.files[0];
+    setImages(updatedImages);
   };
 
   const handleVideoChange = (e) => {
@@ -42,7 +41,7 @@ const AddItem = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const formData = new FormData();
     formData.append('productName', productName);
     formData.append('productDescription', productDescription);
@@ -52,47 +51,21 @@ const AddItem = () => {
     formData.append('discountPercentage', discountPercentage);
     formData.append('bestseller', bestseller);
     formData.append('ecoFriendly', ecoFriendly);
-  
-    selectedSizes.forEach((size) => formData.append('selectedSizes[]', size)); // array
-  
-    images.forEach((image) => {
-      formData.append('images', image); // key must match `multer` config
-    });
-  
-    if (video) {
-      formData.append('video', video);
-    }
-  
+
+    selectedSizes.forEach((size) => formData.append('selectedSizes[]', size));
+    images.forEach((image) => formData.append('images', image));
+    if (video) formData.append('video', video);
+
     try {
       const res = await fetch('http://localhost:5000/api/products/add-product', {
         method: 'POST',
         body: formData,
       });
-  
+
       const data = await res.json();
-      
+
       if (res.ok) {
-        toast.success('Product added successfully!', {
-          position: "top-right",
-          autoClose: 3500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          style: {
-            background: '#fff',
-            border: '1px solid #e2e8f0',
-            borderRadius: '4px',
-            padding: '16px',
-            boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
-          },
-          progressStyle: {
-            background: '#22c55e'
-          }
-        });
-        // Reset form
+        toast.success('Product added successfully!');
         setProductName('');
         setProductDescription('');
         setProductPrice('');
@@ -113,217 +86,178 @@ const AddItem = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <ToastContainer
-        position="top-right"
-        autoClose={3500}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      {/* Sidebar */}
+      <ToastContainer />
       <div className="w-64 bg-white shadow-lg p-5">
         <div className="flex items-center mb-10">
           <img src="https://i.ibb.co/6st3HXP/adaa-jaipur-logo.png" alt="Logo" className="h-14 mx-auto" />
         </div>
         <nav className="space-y-4">
-          <Link to="/admindashboard" className="w-full text-left flex items-center space-x-2">
-            <FaList /> <span>Dashboard</span>
-          </Link>
-          <Link to="/additem" className="w-full text-left flex items-center space-x-2 text-pink-600 font-semibold">
-            <FaList /> <span>Add Items</span>
-          </Link>
-          <Link to="/listitem" className="w-full text-left flex items-center space-x-2">
-            <FaList /> <span>List Items</span>
-          </Link>
-          <Link to="/order" className="w-full text-left flex items-center space-x-2">
-            <FaShoppingBag /> <span>Orders</span>
-          </Link>
-          <Link to="/categories" className="w-full text-left flex items-center space-x-2">
-            <FaList /> <span>Categories</span>
-          </Link>
-          <Link to="/shop-the-look" className="w-full text-left flex items-center space-x-2">
-            <FaList /> <span>Shop The Look</span>
-          </Link>
+          <Link to="/admindashboard" className="flex items-center gap-2"><FaList /> Dashboard</Link>
+          <Link to="/additem" className="flex items-center gap-2 text-pink-600 font-semibold"><FaList /> Add Items</Link>
+          <Link to="/listitem" className="flex items-center gap-2"><FaList /> List Items</Link>
+          <Link to="/order" className="flex items-center gap-2"><FaShoppingBag /> Orders</Link>
+          <Link to="/categories" className="flex items-center gap-2"><FaList /> Categories</Link>
+          <Link to="/shop-the-look" className="flex items-center gap-2"><FaList /> Shop The Look</Link>
         </nav>
       </div>
 
-      {/* Main Content */}
       <div className="flex-1 p-8 mt-20">
-        {/* Logout Button */}
-        <div className="flex justify-end">
+        <div className="flex justify-end mb-6">
           <button className="flex items-center space-x-2 bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300">
             <FaSignOutAlt /> <span>Logout</span>
           </button>
         </div>
 
-        {/* Page Content */}
         <h1 className="text-2xl font-semibold mb-6">Add New Item</h1>
 
-        {/* Upload Images */}
-        <div className="mb-8">
-          <label className="block text-lg font-semibold mb-3">Upload Images</label>
-          <div className="flex gap-4">
-            {[...Array(4)].map((_, index) => (
-              <div
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
+          {/* Image Upload */}
+          <div className="mb-6">
+            <label className="block text-lg font-semibold mb-2">Upload Images</label>
+            {[0, 1, 2, 3].map((index) => (
+              <input
                 key={index}
-                className="relative border-2 border-dashed border-gray-300 rounded-lg w-24 h-24 flex items-center justify-center hover:border-blue-400 transition"
-              >
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="absolute inset-0 opacity-0 cursor-pointer"
-                  id={`image-upload-${index}`}
-                />
-                <label
-                  htmlFor={`image-upload-${index}`}
-                  className="flex flex-col items-center justify-center text-gray-400 hover:text-blue-400 transition cursor-pointer"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mb-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M16.88 9.1A5 5 0 0012 4a5 5 0 00-4.9 4H7a5 5 0 000 10h8a4 4 0 001.88-8.9zM11 13v3H9v-3H7l3-3 3 3h-2z" />
-                  </svg>
-                  <span className="text-xs font-medium">Upload</span>
-                </label>
-              </div>
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageChange(e, index)}
+                className="w-full px-4 py-2 border rounded-lg mb-4"
+              />
             ))}
+            {images.length > 0 && (
+              <div className="flex flex-wrap mt-2 gap-4">
+                {images.map((img, index) => (
+                  img && (
+                    <img
+                      key={index}
+                      src={URL.createObjectURL(img)}
+                      alt={`Preview ${index}`}
+                      className="w-24 h-24 object-cover rounded-md border"
+                    />
+                  )
+                ))}
+              </div>
+            )}
           </div>
-        </div>
 
-        {/* Upload Video */}
-        <div className="mb-8">
-          <label className="block text-lg font-semibold mb-3">Upload Product Video (Optional)</label>
-          <div className="relative border-2 border-dashed border-gray-300 rounded-lg w-48 h-32 flex items-center justify-center hover:border-blue-400 transition">
+          {/* Video Upload */}
+          <div className="mb-6">
+            <label className="block text-lg font-semibold mb-2">Upload Video</label>
             <input
               type="file"
               accept="video/*"
               onChange={handleVideoChange}
-              className="absolute inset-0 opacity-0 cursor-pointer"
-              id="video-upload"
+              className="w-full px-4 py-2 border rounded-lg"
             />
-            <label
-              htmlFor="video-upload"
-              className="flex flex-col items-center justify-center text-gray-400 hover:text-blue-400 transition cursor-pointer"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mb-2" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.88 9.1A5 5 0 0012 4a5 5 0 00-4.9 4H7a5 5 0 000 10h8a4 4 0 001.88-8.9zM11 13v3H9v-3H7l3-3 3 3h-2z" />
-              </svg>
-              <span className="text-xs font-medium">Upload Video</span>
-            </label>
-          </div>
-        </div>
-
-        {/* Sizes */}
-        <div className="mb-8">
-          <label className="block text-lg font-semibold mb-3">Select Available Sizes</label>
-          <div className="flex gap-4">
-            {sizeOptions.map((size) => (
-              <button
-                key={size}
-                onClick={() => handleSizeToggle(size)}
-                className={`px-4 py-2 border rounded-lg ${
-                  selectedSizes.includes(size)
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
-                }`}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Form Fields */}
-        <div className="grid grid-cols-2 gap-6 mb-8">
-          <div>
-            <label className="block text-lg font-semibold mb-3">Product Name</label>
-            <input
-              type="text"
-              value={productName}
-              onChange={(e) => setProductName(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none"
-              required
-            />
+            {video && (
+              <video controls className="mt-2 w-64 rounded-md border">
+                <source src={URL.createObjectURL(video)} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            )}
           </div>
 
-          <div>
-            <label className="block text-lg font-semibold mb-3">Product Description</label>
-            <textarea
-              value={productDescription}
-              onChange={(e) => setProductDescription(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none"
-              required
-            />
+          {/* Sizes */}
+          <div className="mb-8">
+            <label className="block text-lg font-semibold mb-3">Select Available Sizes</label>
+            <div className="flex gap-4">
+              {sizeOptions.map((size) => (
+                <button
+                  type="button"
+                  key={size}
+                  onClick={() => handleSizeToggle(size)}
+                  className={`px-4 py-2 border rounded-lg ${selectedSizes.includes(size) ? 'bg-blue-500 text-white' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div>
-            <label className="block text-lg font-semibold mb-3">Product Price</label>
-            <input
-              type="number"
-              value={productPrice}
-              onChange={(e) => setProductPrice(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none"
-              required
-            />
+          {/* Product Fields */}
+          <div className="grid grid-cols-2 gap-6 mb-8">
+            <div>
+              <label className="block text-lg font-semibold mb-2">Product Name</label>
+              <input
+                type="text"
+                value={productName}
+                onChange={(e) => setProductName(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-lg font-semibold mb-2">Price</label>
+              <input
+                type="number"
+                value={productPrice}
+                onChange={(e) => setProductPrice(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-lg font-semibold mb-2">Category</label>
+              <input
+                type="text"
+                value={productCategory}
+                onChange={(e) => setProductCategory(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg"
+              />
+            </div>
+            <div>
+              <label className="block text-lg font-semibold mb-2">Subcategory</label>
+              <input
+                type="text"
+                value={subCategory}
+                onChange={(e) => setSubCategory(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg"
+              />
+            </div>
+            <div>
+              <label className="block text-lg font-semibold mb-2">Discount (%)</label>
+              <input
+                type="number"
+                value={discountPercentage}
+                onChange={(e) => setDiscountPercentage(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg"
+              />
+            </div>
+            <div className="col-span-2">
+              <label className="block text-lg font-semibold mb-2">Description</label>
+              <textarea
+                value={productDescription}
+                onChange={(e) => setProductDescription(e.target.value)}
+                rows="4"
+                className="w-full px-4 py-2 border rounded-lg"
+              ></textarea>
+            </div>
+            <div className="col-span-2 flex gap-6 mt-4">
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={bestseller}
+                  onChange={() => setBestseller(!bestseller)}
+                />
+                Bestseller
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={ecoFriendly}
+                  onChange={() => setEcoFriendly(!ecoFriendly)}
+                />
+                Eco-Friendly
+              </label>
+            </div>
           </div>
 
-          <div>
-            <label className="block text-lg font-semibold mb-3">Discount Percentage</label>
-            <input
-              type="number"
-              value={discountPercentage}
-              onChange={(e) => setDiscountPercentage(e.target.value)}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none"
-              required
-            />
-          </div>
-        </div>
-
-        {/* Category & Subcategory */}
-        <div className="mb-8">
-          <label className="block text-lg font-semibold mb-3">Product Category</label>
-          <select
-            value={productCategory}
-            onChange={(e) => setProductCategory(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none"
+          <button
+            type="submit"
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
           >
-            <option value="INDIAN WEAR">Indian Wear</option>
-            <option value="WESTERN WEAR">Western Wear</option>
-            <option value="ACCESSORIES">Accessories</option>
-          </select>
-        </div>
-
-        {/* Bestseller & Eco-Friendly Toggle */}
-        <div className="mb-8">
-          <div className="flex items-center space-x-4">
-            <label className="text-lg font-semibold">Bestseller</label>
-            <input
-              type="checkbox"
-              checked={bestseller}
-              onChange={() => setBestseller(!bestseller)}
-              className="toggle-checkbox"
-            />
-            <label className="text-lg font-semibold">Eco-Friendly</label>
-            <input
-              type="checkbox"
-              checked={ecoFriendly}
-              onChange={() => setEcoFriendly(!ecoFriendly)}
-              className="toggle-checkbox"
-            />
-          </div>
-        </div>
-
-        {/* Submit Button */}
-        <button
-          onClick={handleSubmit}
-          className="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700"
-        >
-          Add Product
-        </button>
+            Submit Product
+          </button>
+        </form>
       </div>
     </div>
   );

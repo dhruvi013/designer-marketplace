@@ -1,12 +1,14 @@
 const express = require('express');
 const multer = require('multer');
+const path = require('path');
 const { addProduct } = require('../controllers/product.controller');
 
 const router = express.Router();
 
+// Store in 'assets/' directory
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    cb(null, path.join(__dirname, '../assets/')); // Ensure folder exists
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + '-' + file.originalname);
