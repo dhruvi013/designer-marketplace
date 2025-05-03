@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaFilter, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import axios from 'axios'; // Axios for backend API calls
 
 const filters = {
   brand: ["Nike", "Adidas", "Puma", "Reebok"],
@@ -16,33 +17,6 @@ const filters = {
   offers: ["Bank Offer", "Combo Offer", "No Cost EMI"],
 };
 
-const products = [
-  {
-    id: 1,
-    name: "Casual Shirt",
-    price: 999,
-    discount: "20% Off",
-    brand: "Nike",
-    imageSrc: "https://m.media-amazon.com/images/I/91dKFxVIZjL._AC_UY1100_.jpg",
-  },
-  {
-    id: 2,
-    name: "Running Shoes",
-    price: 1999,
-    discount: "30% Off",
-    brand: "Adidas",
-    imageSrc: "https://via.placeholder.com/300",
-  },
-  {
-    id: 3,
-    name: "Denim Jacket",
-    price: 2999,
-    discount: "50% Off",
-    brand: "Puma",
-    imageSrc: "https://via.placeholder.com/300",
-  }
-];
-
 const sortingOptions = [
   "Relevant",
   "Price Low to High",
@@ -52,6 +26,21 @@ const sortingOptions = [
 const ProductPage = () => {
   const [selectedSort, setSelectedSort] = useState("Relevant");
   const [showFilters, setShowFilters] = useState(false);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    // Fetch products from backend
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/products");
+        setProducts(res.data); // Assuming your API returns an array of products
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <div className="flex flex-col lg:flex-row bg-white min-h-screen p-4 py-24 relative">
@@ -93,11 +82,21 @@ const ProductPage = () => {
             </select>
           </div>
         </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {products.map((product) => (
-            <Link key={product.id} to={`/product/${product.id}`} className="bg-white shadow-md border transform transition-all duration-300 hover:scale-105 relative group overflow-hidden">
+            <Link
+              key={product.id}
+              to={`/product/${product.id}`}
+              className="bg-white shadow-md border transform transition-all duration-300 hover:scale-105 relative group overflow-hidden"
+            >
               <div className="w-full h-50 overflow-hidden">
-                <img src={product.imageSrc} alt={product.name} className="w-full h-48 object-cover object-top" style={{ objectPosition: 'top' }} />
+                <img
+src="http://localhost:5000/assets/1746276414208-4d99764af304e9fd5c0c82cb5ec78cff"
+alt={product.name}
+                  className="w-full h-48 object-cover object-top"
+                  style={{ objectPosition: 'top' }}
+                />
               </div>
               <div className="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button className="bg-white p-2 rounded-full shadow-md">
@@ -115,7 +114,9 @@ const ProductPage = () => {
                   <p className="text-gray-500 line-through text-xs">₹{(product.price * 1.2).toFixed(0)}</p>
                   <p className="text-green-600 font-semibold text-xs">{product.discount}</p>
                 </div>
-                <p className="text-green-600 font-semibold text-xs">Save ₹{(product.price * 0.2).toFixed(0)}</p>
+                <p className="text-green-600 font-semibold text-xs">
+                  Save ₹{(product.price * 0.2).toFixed(0)}
+                </p>
               </div>
             </Link>
           ))}

@@ -53,6 +53,7 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use("/auth", authRoutes);
 app.use("/auth", adminRoutes);       // Admin authentication routes
 app.use('/api/products', productRoutes);
+app.use('/api', productRoutes); // Makes /api/products work
 
 
 // ✅ Database Sync

@@ -30,10 +30,11 @@ exports.addProduct = async (req, res) => {
     }
 
     // Handling multiple image uploads
-    const imagePaths = req.files.images?.map(file =>
-      `/assets/${path.basename(file.path)}`
-    ) || [];
-
+    const imagePaths = req.files.images?.map(file => {
+      console.log(file.path);  // Log the full file path during the upload
+      return `/assets/${path.basename(file.path)}`;
+    }) || [];
+    
     // Optionally handle video file as before
     const videoPath = req.files.video?.[0]
       ? `/assets/${path.basename(req.files.video[0].path)}`
@@ -58,5 +59,25 @@ exports.addProduct = async (req, res) => {
   } catch (error) {
     console.error('Error adding product:', error);
     res.status(500).json({ error: 'Error adding product' });
+  }
+};
+
+exports.getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.findAll();
+    const trimmed = products.map((p) => ({
+      id: p.id,
+      name: p.productName,  // Changed from productName to name
+      category: p.productCategory,  // Changed from productCategory to category
+      price: p.productPrice,  // Changed from productPrice to price
+      discount: p.discountPercentage,  // Changed from discountPercentage to discount
+      images: p.images,
+      bestseller: p.bestseller,
+      ecoFriendly: p.ecoFriendly
+    }));
+        res.json(trimmed);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: 'Failed to fetch products' });
   }
 };
