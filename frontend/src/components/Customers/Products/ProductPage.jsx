@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaFilter, FaRegHeart, FaShoppingCart } from "react-icons/fa";
-import { Link } from 'react-router-dom';
-import axios from 'axios'; // Axios for backend API calls
+import { Link } from "react-router-dom";
+import axios from "axios"; // Axios for backend API calls
 
 const filters = {
   brand: ["Nike", "Adidas", "Puma", "Reebok"],
@@ -17,11 +17,7 @@ const filters = {
   offers: ["Bank Offer", "Combo Offer", "No Cost EMI"],
 };
 
-const sortingOptions = [
-  "Relevant",
-  "Price Low to High",
-  "Price High to Low",
-];
+const sortingOptions = ["Relevant", "Price Low to High", "Price High to Low"];
 
 const ProductPage = () => {
   const [selectedSort, setSelectedSort] = useState("Relevant");
@@ -45,11 +41,17 @@ const ProductPage = () => {
   return (
     <div className="flex flex-col lg:flex-row bg-white min-h-screen p-4 py-24 relative">
       {/* Sidebar */}
-      <aside className={`w-full lg:w-1/4 p-4 transition-all ${showFilters ? 'block' : 'hidden lg:block'}`}>
+      <aside
+        className={`w-full lg:w-1/4 p-4 transition-all ${
+          showFilters ? "block" : "hidden lg:block"
+        }`}
+      >
         <h2 className="text-xl font-bold mb-4 text-black-600">Filters</h2>
         {Object.keys(filters).map((category) => (
           <div key={category} className="mb-4">
-            <h3 className="font-semibold text-gray-700 capitalize">{category}</h3>
+            <h3 className="font-semibold text-gray-700 capitalize">
+              {category}
+            </h3>
             {filters[category].map((option) => (
               <label key={option} className="flex items-center space-x-2 mt-1">
                 <input type="checkbox" />
@@ -91,12 +93,14 @@ const ProductPage = () => {
               className="bg-white shadow-md border transform transition-all duration-300 hover:scale-105 relative group overflow-hidden"
             >
               <div className="w-full h-50 overflow-hidden">
-                <img
-src="http://localhost:5000/assets/1746276414208-4d99764af304e9fd5c0c82cb5ec78cff"
-alt={product.name}
-                  className="w-full h-48 object-cover object-top"
-                  style={{ objectPosition: 'top' }}
-                />
+              {product.images && product.images.length > 0 && (
+  <img
+  src={`http://localhost:5000${JSON.parse(product.images)[0]}`}
+      alt={product.name}
+    className="w-full h-48 object-cover object-top"
+    style={{ objectPosition: "top" }}
+  />
+)}
               </div>
               <div className="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button className="bg-white p-2 rounded-full shadow-md">
@@ -107,12 +111,22 @@ alt={product.name}
                 </button>
               </div>
               <div className="p-3">
-                <h3 className="font-bold text-md text-gray-900">{product.name}</h3>
-                <p className="text-gray-700 text-sm mt-1">Brand: {product.brand}</p>
+                <h3 className="font-bold text-md text-gray-900">
+                  {product.name}
+                </h3>
+                <p className="text-gray-700 text-sm mt-1">
+                  Brand: {product.brand}
+                </p>
                 <div className="flex items-center space-x-2 mt-2">
-                  <p className="text-gray-900 font-semibold text-md">₹{product.price}</p>
-                  <p className="text-gray-500 line-through text-xs">₹{(product.price * 1.2).toFixed(0)}</p>
-                  <p className="text-green-600 font-semibold text-xs">{product.discount}</p>
+                  <p className="text-gray-900 font-semibold text-md">
+                    ₹{product.price}
+                  </p>
+                  <p className="text-gray-500 line-through text-xs">
+                    ₹{(product.price * 1.2).toFixed(0)}
+                  </p>
+                  <p className="text-green-600 font-semibold text-xs">
+                    {product.discount}
+                  </p>
                 </div>
                 <p className="text-green-600 font-semibold text-xs">
                   Save ₹{(product.price * 0.2).toFixed(0)}

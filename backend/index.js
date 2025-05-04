@@ -46,7 +46,8 @@ app.use(
 );
 
 const path = require('path');
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/assets', express.static(path.join(__dirname, 'src', 'assets')));
+// app.use('/public', express.static(path.join(__dirname, 'public')));
 
 
 // ✅ Routes
