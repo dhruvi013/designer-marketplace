@@ -42,4 +42,31 @@ exports.getAllProducts = async (req, res) => {
 };
 
 
+// In product.controller.js
+exports.getFullProductDetails = async (req, res) => {
+  try {
+    const products = await Product.findAll(); // Fetch all products
+    const full = products.map((p) => ({
+      id: p.id,
+      name: p.name,
+      brand: p.brand,
+      category: p.category,
+      price: p.price,
+      discount: p.discount,
+      description: p.description,
+      bestseller: p.bestseller,
+      ecoFriendly: p.ecoFriendly,
+      selectedSizes: JSON.parse(p.selectedSizes || '[]'),
+      images: JSON.parse(p.images || '[]'),
+      video: p.video
+    }));
+    res.json(full);
+  } catch (error) {
+    console.error("Error fetching full product details:", error);
+    res.status(500).json({ error: 'Failed to fetch full product details' });
+  }
+};
+
+
+
 module.exports = router;

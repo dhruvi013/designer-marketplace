@@ -36,7 +36,6 @@ const App = () => {
         <Route path="/events" element={<Events />} />
         <Route path="/product/:id" element={<ProductDetail />} />
 
-
       </Routes>
       <Footer />
     </Router>
