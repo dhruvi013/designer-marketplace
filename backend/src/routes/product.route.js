@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const { addProduct, getAllProducts } = require('../controllers/product.controller');
+const { addProduct, getAllProducts, getFullProductDetails } = require('../controllers/product.controller');
 
 const router = express.Router();
 
@@ -22,6 +22,7 @@ const upload = multer({ storage: storage }).fields([
 
 router.post('/add-product', upload, addProduct);
 router.get('/products', getAllProducts);
+router.get('/products/:id', getFullProductDetails);
 
 exports.getAllProducts = async (req, res) => {
   try {
@@ -29,7 +30,7 @@ exports.getAllProducts = async (req, res) => {
     const trimmed = products.map((p) => ({
       id: p.id,
       name: p.name,
-      brand: p.brand,
+      // brand: p.brand,
       price: p.price,
       discount: p.discount,
       images: JSON.parse(p.images) // or just p.images if already array
@@ -56,8 +57,8 @@ exports.getFullProductDetails = async (req, res) => {
       description: p.description,
       bestseller: p.bestseller,
       ecoFriendly: p.ecoFriendly,
-      selectedSizes: JSON.parse(p.selectedSizes || '[]'),
-      images: JSON.parse(p.images || '[]'),
+selectedSizes: (p.selectedSizes || '').split(',').map(size => size.trim()).filter(Boolean),
+images: Array.isArray(p.images) ? p.images : (p.images || '').split(',').map(img => img.trim()).filter(Boolean),
       video: p.video
     }));
     res.json(full);
