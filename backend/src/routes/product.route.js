@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const { addProduct, getAllProducts, getFullProductDetails, deleteProduct } = require('../controllers/product.controller');
+const { addProduct, getAllProducts, getFullProductDetails, deleteProduct, updateProduct } = require('../controllers/product.controller');
 
 const router = express.Router();
 
@@ -24,7 +24,7 @@ router.post('/add-product', upload, addProduct);
 router.get('/products', getAllProducts);
 router.get('/products/:id', getFullProductDetails);
 router.delete('/products/:id', deleteProduct);
-
+router.put('/:id', updateProduct);
 exports.getAllProducts = async (req, res) => {
   try {
     const products = await Product.findAll(); // or however you're fetching
@@ -87,6 +87,27 @@ exports.deleteProduct = async (req, res) => {
   } catch (error) {
     console.error('Error deleting product:', error);
     res.status(500).json({ error: 'Failed to delete product' });
+  }
+};
+
+exports.updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;  // product ID from URL param
+    const updateData = req.body; // updated fields in request body
+
+    // Find existing product
+    const product = await Product.findByPk(id);
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    // Update product with new data
+    await product.update(updateData);
+
+    res.json({ message: 'Product updated successfully', product });
+  } catch (error) {
+    console.error('Error updating product:', error);
+    res.status(500).json({ error: 'Failed to update product' });
   }
 };
 

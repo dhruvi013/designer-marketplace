@@ -48,19 +48,21 @@ const ListItems = () => {
     setEditedProduct(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleEditSubmit = async (id) => {
-    try {
-      await axios.put(`http://localhost:5000/api/products/${id}`, editedProduct);
-      setProducts(products.map(product =>
-        product.id === id ? { ...product, ...editedProduct } : product
-      ));
-      setEditProductId(null);
-    } catch (error) {
-      console.error("Error updating product:", error);
-    }
-  };
+const handleEditSubmit = async (id) => {
+  try {
+    const response = await axios.put(`http://localhost:5000/api/products/${id}`, editedProduct);
+    const updatedProduct = response.data.product;
 
-  return (
+    setProducts(products.map(product =>
+      product.id === id ? updatedProduct : product
+    ));
+    setEditProductId(null);
+  } catch (error) {
+    console.error("Error updating product:", error);
+  }
+};
+
+return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
       <div className="w-64 bg-white shadow-lg p-5">
