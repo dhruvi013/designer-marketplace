@@ -3,7 +3,7 @@ import Footer from "./components/Customers/Footer/Footer";
 import Navbar from "./components/Customers/Navigation/Navigation";
 import ProductPage from "./components/Customers/Products/ProductPage";
 import HomePage from "./pages/Homepage/Homepage";
-import Register from "./Pages/register";
+import Register from "./Pages/Register";
 import Login from "./Pages/login";
 import AdminLogin from "./Pages/AdminLogin";
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
