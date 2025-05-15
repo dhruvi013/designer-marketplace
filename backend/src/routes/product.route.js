@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const { addProduct, getAllProducts, getFullProductDetails } = require('../controllers/product.controller');
+const { addProduct, getAllProducts, getFullProductDetails, deleteProduct } = require('../controllers/product.controller');
 
 const router = express.Router();
 
@@ -23,6 +23,7 @@ const upload = multer({ storage: storage }).fields([
 router.post('/add-product', upload, addProduct);
 router.get('/products', getAllProducts);
 router.get('/products/:id', getFullProductDetails);
+router.delete('/products/:id', deleteProduct);
 
 exports.getAllProducts = async (req, res) => {
   try {
@@ -65,6 +66,27 @@ images: Array.isArray(p.images) ? p.images : (p.images || '').split(',').map(img
   } catch (error) {
     console.error("Error fetching full product details:", error);
     res.status(500).json({ error: 'Failed to fetch full product details' });
+  }
+};
+
+// Delete product by ID
+exports.deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;  // Get product ID from URL params
+
+    // Check if product exists
+    const product = await Product.findByPk(id);
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    // Delete product
+    await Product.destroy({ where: { id } });
+
+    res.json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    res.status(500).json({ error: 'Failed to delete product' });
   }
 };
 

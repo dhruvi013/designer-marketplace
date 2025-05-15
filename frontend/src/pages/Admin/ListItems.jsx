@@ -1,61 +1,63 @@
-import { ListItem } from '@mui/material';
-import React, { useState } from 'react';
-import { FaList, FaShoppingBag, FaSignOutAlt } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  FaList, FaShoppingBag, FaSignOutAlt, FaRegHeart, FaShoppingCart, FaEdit, FaTrash
+} from 'react-icons/fa';
+import axios from 'axios';
 
 const ListItems = () => {
-  const [images, setImages] = useState([]);
-  const [video, setVideo] = useState(null);
-  const [productName, setProductName] = useState('');
-  const [productDescription, setProductDescription] = useState('');
-  const [productCategory, setProductCategory] = useState('INDIAN WEAR');
-  const [subCategory, setSubCategory] = useState('KURTAS');
-  const [productPrice, setProductPrice] = useState('');
-  const [discountPercentage, setDiscountPercentage] = useState('');
-  const [selectedSizes, setSelectedSizes] = useState([]);
-  const [bestseller, setBestseller] = useState(false);
-  const [ecoFriendly, setEcoFriendly] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [editProductId, setEditProductId] = useState(null);
+  const [editedProduct, setEditedProduct] = useState({ name: '', brand: '', price: '' });
 
-  const sizeOptions = ['S', 'M', 'L', 'XL', 'XXL'];
-
-  const handleImageChange = (e) => {
-    if (e.target.files) {
-      const fileList = Array.from(e.target.files);
-      setImages(fileList);
-    }
-  };
-
-  const handleVideoChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setVideo(e.target.files[0]);
-    }
-  };
-
-  const handleSizeToggle = (size) => {
-    if (selectedSizes.includes(size)) {
-      setSelectedSizes(selectedSizes.filter((s) => s !== size));
-    } else {
-      setSelectedSizes([...selectedSizes, size]);
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = {
-      productName,
-      productDescription,
-      productCategory,
-      subCategory,
-      productPrice,
-      discountPercentage,
-      selectedSizes,
-      bestseller,
-      ecoFriendly,
-      images,
-      video,
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/products");
+        setProducts(res.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
     };
-    console.log('Product Added:', formData);
-    // API request logic here
+    fetchProducts();
+  }, []);
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this product?");
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:5000/api/products/${id}`);
+        setProducts(products.filter(product => product.id !== id));
+      } catch (error) {
+        console.error("Error deleting product:", error);
+      }
+    }
+  };
+
+  const handleEditClick = (product) => {
+    setEditProductId(product.id);
+    setEditedProduct({
+      name: product.name,
+      brand: product.brand,
+      price: product.price
+    });
+  };
+
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditedProduct(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleEditSubmit = async (id) => {
+    try {
+      await axios.put(`http://localhost:5000/api/products/${id}`, editedProduct);
+      setProducts(products.map(product =>
+        product.id === id ? { ...product, ...editedProduct } : product
+      ));
+      setEditProductId(null);
+    } catch (error) {
+      console.error("Error updating product:", error);
+    }
   };
 
   return (
@@ -66,222 +68,103 @@ const ListItems = () => {
           <img src="https://i.ibb.co/6st3HXP/adaa-jaipur-logo.png" alt="Logo" className="h-14 mx-auto" />
         </div>
         <nav className="space-y-4">
-  <Link to="/admindashboard" className="w-full text-left flex items-center space-x-2 ">
-    <FaList /> <span>Dashboard</span>
-  </Link>
-  
-  <Link to="/additem" className="w-full text-left flex items-center space-x-2">
-    <FaList /> <span>Add Items</span>
-  </Link>
-  
-  <Link to="/listitem" className="w-full text-left flex items-center space-x-2 text-pink-600 font-semibold">
-    <FaList /> <span>List Items</span>
-  </Link>
-  
-  <Link to="/order" className="w-full text-left flex items-center space-x-2">
-    <FaShoppingBag /> <span>Orders</span>
-  </Link>
-  
-  <Link to="/categories" className="w-full text-left flex items-center space-x-2">
-    <FaList /> <span>Categories</span>
-  </Link>
-  
-  <Link to="/shop-the-look" className="w-full text-left flex items-center space-x-2">
-    <FaList /> <span>Shop The Look</span>
-  </Link>
+          <Link to="/admindashboard" className="w-full text-left flex items-center space-x-2"><FaList /> <span>Dashboard</span></Link>
+          <Link to="/additem" className="w-full text-left flex items-center space-x-2"><FaList /> <span>Add Items</span></Link>
+          <Link to="/listitem" className="w-full text-left flex items-center space-x-2"><FaList /> <span>List Items</span></Link>
+          <Link to="/order" className="w-full text-left flex items-center space-x-2 text-pink-600 font-semibold"><FaShoppingBag /> <span>Orders</span></Link>
+          <Link to="/categories" className="w-full text-left flex items-center space-x-2"><FaList /> <span>Categories</span></Link>
+          <Link to="/shop-the-look" className="w-full text-left flex items-center space-x-2"><FaList /> <span>Shop The Look</span></Link>
         </nav>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 p-8 mt-20">
-        {/* Logout Button */}
-        <div className="flex justify-end">
-          <button className="flex items-center space-x-2 bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300">
-            <FaSignOutAlt /> <span>Logout</span>
-          </button>
-        </div>
+      {/* Product Cards */}
+      <div className="w-4/5 p-8 bg-gray-50 mt-20">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">All Products</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {products.map((product) => {
+            const images = JSON.parse(product.images || "[]");
+            const isEditing = editProductId === product.id;
 
-        {/* Page Content */}
-        <h1 className="text-2xl font-semibold mb-6">Add New Item</h1>
-
-        {/* Upload Images */}
-        <div className="mb-8">
-          <label className="block text-lg font-semibold mb-3">Upload Images</label>
-          <div className="flex gap-4">
-            {[...Array(4)].map((_, index) => (
+            return (
               <div
-                key={index}
-                className="relative border-2 border-dashed border-gray-300 rounded-lg w-24 h-24 flex items-center justify-center hover:border-blue-400 transition"
+                key={product.id}
+                className="bg-white shadow-md border rounded overflow-hidden hover:shadow-lg transition-transform transform hover:scale-105 relative group"
               >
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="absolute inset-0 opacity-0 cursor-pointer"
-                  id={`image-upload-${index}`}
-                />
-                <label
-                  htmlFor={`image-upload-${index}`}
-                  className="flex flex-col items-center justify-center text-gray-400 hover:text-blue-400 transition cursor-pointer"
-                >
-                  {/* Cloud Upload Icon */}
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mb-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M16.88 9.1A5 5 0 0012 4a5 5 0 00-4.9 4H7a5 5 0 000 10h8a4 4 0 001.88-8.9zM11 13v3H9v-3H7l3-3 3 3h-2z" />
-                  </svg>
-                  <span className="text-xs font-medium">Upload</span>
-                </label>
+                <div className="w-full h-48 overflow-hidden">
+                  {images.length > 0 && (
+                    <img
+                      src={`http://localhost:5000${images[0]}`}
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                </div>
+
+                <div className="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                  <button className="bg-white p-2 rounded-full shadow-md" onClick={() => handleEditClick(product)}>
+                    <FaEdit className="text-blue-600" />
+                  </button>
+                  <button className="bg-white p-2 rounded-full shadow-md" onClick={() => handleDelete(product.id)}>
+                    <FaTrash className="text-red-600" />
+                  </button>
+                </div>
+
+                <div className="p-3">
+                  {isEditing ? (
+                    <div className="space-y-2">
+                      <input
+                        name="name"
+                        value={editedProduct.name}
+                        onChange={handleEditChange}
+                        className="border w-full p-1 rounded"
+                        placeholder="Product Name"
+                      />
+                      <input
+                        name="brand"
+                        value={editedProduct.brand}
+                        onChange={handleEditChange}
+                        className="border w-full p-1 rounded"
+                        placeholder="Brand"
+                      />
+                      <input
+                        name="price"
+                        value={editedProduct.price}
+                        onChange={handleEditChange}
+                        className="border w-full p-1 rounded"
+                        placeholder="Price"
+                      />
+                      <button
+                        onClick={() => handleEditSubmit(product.id)}
+                        className="bg-green-600 text-white px-2 py-1 rounded text-sm"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={() => setEditProductId(null)}
+                        className="text-gray-500 text-sm ml-2"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <h3 className="font-bold text-md text-gray-900">{product.name}</h3>
+                      <p className="text-gray-700 text-sm mt-1">Brand: {product.brand}</p>
+                      <div className="flex items-center space-x-2 mt-2">
+                        <p className="text-gray-900 font-semibold text-md">₹{product.price}</p>
+                        <p className="text-gray-500 line-through text-xs">₹{(product.price * 1.2).toFixed(0)}</p>
+                        <p className="text-green-600 font-semibold text-xs">{product.discount}</p>
+                      </div>
+                      <p className="text-green-600 font-semibold text-xs">
+                        Save ₹{(product.price * 0.2).toFixed(0)}
+                      </p>
+                    </>
+                  )}
+                </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
-
-        {/* Upload Video */}
-        <div className="mb-8">
-          <label className="block text-lg font-semibold mb-3">Upload Product Video (Optional)</label>
-          <div className="relative border-2 border-dashed border-gray-300 rounded-lg w-48 h-32 flex items-center justify-center hover:border-blue-400 transition">
-            <input
-              type="file"
-              accept="video/*"
-              onChange={handleVideoChange}
-              className="absolute inset-0 opacity-0 cursor-pointer"
-              id="video-upload"
-            />
-            <label
-              htmlFor="video-upload"
-              className="flex flex-col items-center justify-center text-gray-400 hover:text-blue-400 transition cursor-pointer"
-            >
-              {/* Cloud Upload Icon */}
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mb-2" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M16.88 9.1A5 5 0 0012 4a5 5 0 00-4.9 4H7a5 5 0 000 10h8a4 4 0 001.88-8.9zM11 13v3H9v-3H7l3-3 3 3h-2z" />
-              </svg>
-              <span className="text-sm font-medium">Upload Video</span>
-            </label>
-          </div>
-        </div>
-
-        {/* Product Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium">Product Name</label>
-            <input
-              type="text"
-              value={productName}
-              onChange={(e) => setProductName(e.target.value)}
-              className="mt-2 p-2 border rounded-md w-full"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Product Description</label>
-            <textarea
-              value={productDescription}
-              onChange={(e) => setProductDescription(e.target.value)}
-              className="mt-2 p-2 border rounded-md w-full"
-              required
-            />
-          </div>
-
-          {/* Category and Subcategory */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium">Product Category</label>
-              <select
-                value={productCategory}
-                onChange={(e) => setProductCategory(e.target.value)}
-                className="mt-2 p-2 border rounded-md w-full"
-              >
-                <option>INDIAN WEAR</option>
-                <option>WESTERN WEAR</option>
-                <option>ACCESSORIES</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium">Sub Category</label>
-              <select
-                value={subCategory}
-                onChange={(e) => setSubCategory(e.target.value)}
-                className="mt-2 p-2 border rounded-md w-full"
-              >
-                <option>KURTAS</option>
-                <option>TOPS</option>
-                <option>DRESSES</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Pricing */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium">Product Price</label>
-              <input
-                type="number"
-                value={productPrice}
-                onChange={(e) => setProductPrice(e.target.value)}
-                className="mt-2 p-2 border rounded-md w-full"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium">Discount Percentage</label>
-              <input
-                type="number"
-                value={discountPercentage}
-                onChange={(e) => setDiscountPercentage(e.target.value)}
-                className="mt-2 p-2 border rounded-md w-full"
-                placeholder="0-100"
-              />
-            </div>
-          </div>
-
-          {/* Product Sizes */}
-          <div>
-            <label className="block text-sm font-medium mb-2">Product Sizes</label>
-            <div className="flex gap-2">
-              {sizeOptions.map((size) => (
-                <button
-                  type="button"
-                  key={size}
-                  onClick={() => handleSizeToggle(size)}
-                  className={`border rounded-md px-3 py-1 ${
-                    selectedSizes.includes(size) ? 'bg-blue-500 text-white' : ''
-                  }`}
-                >
-                  {size}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Checkboxes */}
-          <div className="flex flex-col gap-2 mt-4">
-            <label className="inline-flex items-center">
-              <input
-                type="checkbox"
-                checked={bestseller}
-                onChange={(e) => setBestseller(e.target.checked)}
-                className="mr-2"
-              />
-              Bestseller
-            </label>
-            <label className="inline-flex items-center">
-              <input
-                type="checkbox"
-                checked={ecoFriendly}
-                onChange={(e) => setEcoFriendly(e.target.checked)}
-                className="mr-2"
-              />
-              Eco-Friendly
-            </label>
-          </div>
-
-          {/* Submit Button */}
-          <div className="mt-6">
-            <button type="submit" className="bg-black text-white px-6 py-2 rounded-md">
-              Add Product
-            </button>
-          </div>
-        </form>
       </div>
     </div>
   );

@@ -55,6 +55,8 @@ app.use("/auth", authRoutes);
 app.use("/auth", adminRoutes);       // Admin authentication routes
 app.use('/api/products', productRoutes);
 app.use('/api', productRoutes); // Makes /api/products work
+app.use('/api', productRoutes);
+
 
 
 // ✅ Database Sync

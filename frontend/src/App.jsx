@@ -14,7 +14,7 @@ import ListItems from "./Pages/Admin/ListItems";
 import Orders from "./Pages/Admin/Orders";
 import BlogPage from "./Pages/BlogPage";
 import Events from "./Pages/Events";
-import ProductDetail from "./components/Customers/Products/ProductDetail";
+// import ProductDetail from "./components/Customers/Products/ProductDetail";
 
 const App = () => {
   return (
@@ -34,7 +34,7 @@ const App = () => {
         <Route path="/order" element={<Orders />} />
         <Route path="/blogpage" element={<BlogPage />} />
         <Route path="/events" element={<Events />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
+        {/* <Route path="/product/:id" element={<ProductDetail />} /> */}
 
       </Routes>
       <Footer />
