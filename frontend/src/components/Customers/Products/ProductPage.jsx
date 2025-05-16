@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { FaFilter, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+
 
 const filters = {
   brand: ["Nike", "Adidas", "Puma", "Reebok"],
@@ -23,6 +25,8 @@ const ProductPage = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const navigate = useNavigate();
+
 
   // CART STATE
   const [cartItems, setCartItems] = useState([]);
@@ -338,12 +342,12 @@ const ProductPage = () => {
               </ul>
               <div className="mt-4 border-t border-gray-300 pt-4">
                 <p className="text-lg font-bold text-black">Total: ₹{cartTotal.toFixed(2)}</p>
-                <button
-                  className="mt-2 w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded"
-                  onClick={() => alert("Checkout feature not implemented yet.")}
-                >
-                  Checkout
-                </button>
+<button
+  className="mt-2 w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded"
+  onClick={() => navigate('/checkout')}
+>
+  Checkout
+</button>
               </div>
             </>
           )}
