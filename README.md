@@ -1,4 +1,4 @@
-# 🎨 Designer Marketplace
+# 🎨 Designer Marketplace – Fashion Shopping Platform
 
 [![Made with React](https://img.shields.io/badge/Made%20with-React-61DBFB?logo=react)]()
 [![Node.js](https://img.shields.io/badge/Backend-Node.js-green?logo=node.js)]()
@@ -6,25 +6,26 @@
 [![MySQL](https://img.shields.io/badge/Database-MySQL-blue?logo=mysql)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> A full-stack **marketplace platform** where designers can showcase their work and clients can hire them. Built with **React (Frontend)**, **Node.js + Express (Backend)**, and **MySQL** for reliable storage.
+> A full-stack **fashion marketplace** where talented designers can showcase and sell their clothes, and customers can shop directly from their collections. Built with **React (Frontend)**, **Node.js + Express (Backend)**, and **MySQL**.
 
 ---
 
 ## 🚀 Features
 
-### 👩‍🎨 For Designers
-- Create a profile & portfolio
-- Upload designs or services offered
-- Manage client requests
+### 👗 For Designers
+- Create a profile & upload clothing items
+- Set prices, add descriptions, manage stock
+- View and manage orders
 
-### 🛒 For Clients
-- Browse designer portfolios
-- Filter & search by category
-- Send project requests & hire designers
+### 🛍 For Customers
+- Browse fashion collections by different designers
+- Search and filter by category, size, price
+- Add items to cart and checkout
+- Track orders
 
-### 🔧 For Admin
-- Manage users & listings
-- Approve or remove content
+### 🛠 For Admin
+- Approve or remove designer listings
+- Manage users and monitor transactions
 
 ---
 
@@ -53,3 +54,5 @@ designer-marketplace/
 │   ├── src/pages/      # Pages
 │   └── App.js          # Root component
 └── README.md
+
+
