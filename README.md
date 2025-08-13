@@ -1,35 +1,55 @@
-# Designer Marketplace
+# 🎨 Designer Marketplace
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Made with React](https://img.shields.io/badge/Made%20with-React-61DBFB?logo=react)]()
+[![Node.js](https://img.shields.io/badge/Backend-Node.js-green?logo=node.js)]()
+[![Express](https://img.shields.io/badge/Framework-Express.js-black?logo=express)]()
+[![MySQL](https://img.shields.io/badge/Database-MySQL-blue?logo=mysql)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-##  Overview
-A dynamic marketplace that connects talented designers with clients looking for creative services.  
-Empowers designers to showcase their work and manage orders, while clients can easily discover and hire design professionals.
-
----
-
-##  Features
--  **Designer Portal**
-  - Register/sign in, build and manage profile/portfolio
--  **Client Experience**
-  - Browse designers, view past work, send inquiries
--  **Real-time Interaction**
-  - In-app messaging, order tracking, review system
--  **Admin Panel** *(if any)*
-  - Monitor users, manage listings, moderate content
+> A full-stack **marketplace platform** where designers can showcase their work and clients can hire them. Built with **React (Frontend)**, **Node.js + Express (Backend)**, and **MySQL** for reliable storage.
 
 ---
 
-##  Tech Stack
-- **Backend**: Node.js with Express.js (or your stack)
-- **Database**: MongoDB (or your choice)
-- **Frontend**: React.js with Tailwind CSS (or specify technologies)
+## 🚀 Features
+
+### 👩‍🎨 For Designers
+- Create a profile & portfolio
+- Upload designs or services offered
+- Manage client requests
+
+### 🛒 For Clients
+- Browse designer portfolios
+- Filter & search by category
+- Send project requests & hire designers
+
+### 🔧 For Admin
+- Manage users & listings
+- Approve or remove content
 
 ---
 
-##  Getting Started
+## 🗂 Tech Stack
 
-### Prerequisites
-- Node.js ≥ 14
-- MongoDB running locally or via cloud
-- `.env` file with:
+| Layer      | Technology |
+|------------|------------|
+| **Frontend** | React.js, CSS/Tailwind |
+| **Backend**  | Node.js, Express.js |
+| **Database** | MySQL |
+| **Tools**    | npm, Postman, VS Code |
+
+---
+
+## 📦 Project Structure
+
+```plaintext
+designer-marketplace/
+├── backend/            # Node.js + Express API
+│   ├── routes/         # API route definitions
+│   ├── controllers/    # Business logic
+│   ├── models/         # MySQL models
+│   └── server.js       # Entry point
+├── frontend/           # React UI
+│   ├── src/components/ # Reusable UI components
+│   ├── src/pages/      # Pages
+│   └── App.js          # Root component
+└── README.md
