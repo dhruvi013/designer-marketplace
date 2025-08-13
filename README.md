@@ -1,7 +1,6 @@
 # Designer Marketplace
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Made with Love ❤️](https://img.shields.io/badge/built_with-love-in-India-red.svg)]()
 
 ##  Overview
 A dynamic marketplace that connects talented designers with clients looking for creative services.  
